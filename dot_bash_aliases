@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+alias ll="ls -lahF --group-directories-first"
+alias publicip="curl http://ipecho.net/plain; echo"
+alias dinopass="curl https://www.dinopass.com/password/strong"
+
+alias vim="nvim"
+alias cat="bat"
+alias tree="tre"
+
+# Git
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gr="git rm"
+alias gd="git diff"
+
+# Python
+alias a="source .venv/bin/activate 2> /dev/null || source \$(git rev-parse --show-toplevel)/.venv/bin/activate"
+alias d="deactivate"
+alias pip="pip3"
+
+alias cpu_freq='watch -n.1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'

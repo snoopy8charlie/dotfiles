@@ -1,0 +1,16 @@
+[[zones]]
+id = "America/Chicago"
+name = "Central"
+
+[[zones]]
+id = "America/Denver"
+name = "Mountain"
+
+[[zones]]
+id = "UTC"
+name = "UTC"
+
+[[zones]]
+id = "Asia/Calcutta"
+name = "India"
+

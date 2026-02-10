@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+	# include .bashrc if it exists
+	if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ]; then
+	PATH="$HOME/.local/bin:$PATH"
+fi
+
+export PATH=$HOME/bin/nvim-win64/bin/nvim.exe:$PATH
+export PATH=$HOME/bin/lua-language-server/bin/:$PATH  # add lua-language-server to PATH
+export PATH=$HOME/go/bin/:/usr/local/go/bin:$PATH
+export PATH=$HOME/bin/zig:$PATH
+export PATH=$HOME/AppData/Roaming/IntelliShell/Intelli-Shell/data/bin:$PATH
+
+export VISUAL="nvim"
+export EDITOR="$VISUAL"
+
+# need this for pinentry to work with signed commits
+export GPG_TTY=$(tty)
+
+# IntelliShell
+export INTELLI_HOME="/C/Users/dmcla/AppData/Roaming/IntelliShell/Intelli-Shell/data"
+export INTELLI_CONFIG=~/.config/intelli-shell/config.toml
+# export INTELLI_SEARCH_HOTKEY=\\C-@
+# export INTELLI_VARIABLE_HOTKEY=\\C-l
+# export INTELLI_BOOKMARK_HOTKEY=\\C-b
+# export INTELLI_FIX_HOTKEY=\\C-x
+export INTELLI_SKIP_ESC_BIND=1
+# alias is="intelli-shell"
+export PATH="$INTELLI_HOME/bin:$PATH"
+eval "$(intelli-shell init bash)"
+
+export XDG_CONFIG_HOME=~/.config
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+export EGET_CONFIG=~/.config/eget/eget.toml
+export WEZTERM_CONFIG_FILE=~/.config/wezterm/wezterm.lua
