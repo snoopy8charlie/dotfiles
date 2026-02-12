@@ -50,3 +50,6 @@ export XDG_CONFIG_HOME=~/.config
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export EGET_CONFIG=~/.config/eget/eget.toml
 export WEZTERM_CONFIG_FILE=~/.config/wezterm/wezterm.lua
+
+export AUTOENV_ENABLE_LEAVE=yes
+export AUTOENV_VIEWER=cat

@@ -80,3 +80,8 @@ set -o vi
 # /usr/bin/setxkbmap -option "ctrl:nocaps"
 
 eval "$(starship init bash)"
+
+autoenv="$HOME/.autoenv/activate.sh"
+if [[ -f $autoenv ]]; then
+  source $autoenv
+fi
