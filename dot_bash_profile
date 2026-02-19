@@ -22,11 +22,11 @@ if [ -d "$HOME/.local/bin" ]; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH=$HOME/bin/nvim-win64/bin/nvim.exe:$PATH
+export PATH=$HOME/bin/nvim/bin/:$PATH
 export PATH=$HOME/bin/lua-language-server/bin/:$PATH  # add lua-language-server to PATH
-export PATH=$HOME/go/bin/:/usr/local/go/bin:$PATH
-export PATH=$HOME/bin/zig:$PATH
-export PATH=$HOME/AppData/Roaming/IntelliShell/Intelli-Shell/data/bin:$PATH
+export PATH=$HOME/go/bin/:/usr/local/go/bin/:$PATH
+export PATH=$HOME/bin/zig/:$PATH
+export PATH=$HOME/AppData/Roaming/IntelliShell/Intelli-Shell/data/bin/:$PATH
 
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
