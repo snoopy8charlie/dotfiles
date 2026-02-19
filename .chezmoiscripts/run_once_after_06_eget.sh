@@ -15,6 +15,8 @@ if [[ $CHEZMOI_OS == "linux" ]]; then
   FILE=eget-1.3.4-linux_amd64.tar.gz
   mkdir ~/bin/eget
   curl -LO https://github.com/zyedidia/eget/releases/download/v1.3.4/eget-1.3.4-linux_amd64.tar.gz
-  tar xzf $FILE -C "$HOME/bin/eget" --strip-components=1
+  tar xzf $FILE -C "$HOME/bin/eget_dir" --strip-components=1
+  mv $HOME/bin/eget_dir/eget $HOME/bin/eget
+  rm -r $HOME/bin/eget_dir
   rm $FILE
 fi
