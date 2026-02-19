@@ -25,6 +25,8 @@ if [[ $CHEZMOI_OS == "linux" ]]; then
       echo "Error: python not found in PATH."
       exit 1
   fi
+
+  python -m pip install -U pip
 fi
 
 pip install djlint ruff ty
