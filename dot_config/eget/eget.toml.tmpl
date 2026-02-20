@@ -1,0 +1,79 @@
+{{ if eq .chezmoi.os "linux" }}
+[global]
+target = "~/bin"
+
+["sharkdp/fd"]
+asset_filters = [ "x86_64-unknown-linux-gnu.tar.gz" ]
+
+["BurntSushi/ripgrep"]
+asset_filters = [ "x86_64-unknown-linux-musl.tar.gz" ]
+verify_sha256 = "0bf217086ecb1392070020810b888bd405cb1dd5f088c16c45d9de1e5ea6b638"  # needed this to pass the checksum check; it was failing, possibly due to a bad sha256 file?
+
+["sharkdp/bat"]
+asset_filters = [ "x86_64-unknown-linux-gnu.tar.gz" ]
+
+["YS-L/csvlens"]
+asset_filters = [ "x86_64-unknown-linux-gnu.tar.xz" ]
+
+["dandavison/delta"]
+asset_filters = [ "x86_64-unknown-linux-gnu.tar.gz" ]
+
+["jqlang/jq"]
+asset_filters = ["jq-linux-amd64"]
+target = "~/bin/jq"
+
+["antonmedv/fx"]
+asset_filters = ["fx_linux_amd64"]
+target = "~/bin/fx"
+
+["noahgorstein/jqp"]
+asset_filters = ["jqp_Linux_arm64.tar.gz"]
+
+["dduan/tre"]
+asset_filters = ["x86_64-unknown-linux-musl.tar.gz"]
+
+["sachaos/viddy"]
+asset_filters = ["viddy-v1.3.0-linux-x86_64.tar.gz"]
+
+["JohnnyMorganz/StyLua"]
+asset_filters = ["stylua-linux-x86_64-musl.zip"]
+{{ else }}
+[global]
+target = "~/bin"
+
+["sharkdp/fd"]
+asset_filters = [ "x86_64-pc-windows-gnu.zip" ]
+
+["BurntSushi/ripgrep"]
+asset_filters = [ "ripgrep-15.1.0-x86_64-pc-windows-gnu.zip" ]
+verify_sha256 = "0bf217086ecb1392070020810b888bd405cb1dd5f088c16c45d9de1e5ea6b638"  # needed this to pass the checksum check; it was failing, possibly due to a bad sha256 file?
+
+["sharkdp/bat"]
+asset_filters = [ "bat-v0.26.1-x86_64-pc-windows-msvc.zip" ]
+
+["YS-L/csvlens"]
+asset_filters = [ "csvlens-x86_64-pc-windows-msvc.zip" ]
+
+["dandavison/delta"]
+asset_filters = ["delta-0.18.2-x86_64-pc-windows-msvc.zip"]
+
+["jqlang/jq"]
+asset_filters = ["jq-windows-amd64.exe"]
+target = "~/bin/jq.exe"
+
+["antonmedv/fx"]
+asset_filters = ["fx_windows_amd64.exe"]
+target = "~/bin/fx.exe"
+
+["noahgorstein/jqp"]
+asset_filters = ["jqp_Windows_x86_64.tar.gz"]
+
+["dduan/tre"]
+asset_filters = ["tre-v0.4.0-x86_64-pc-windows-gnu.zip"]
+
+["sachaos/viddy"]
+asset_filters = ["viddy-v1.3.0-windows-x86_64.tar.gz"]
+
+["JohnnyMorganz/StyLua"]
+asset_filters = ["stylua-windows-x86_64.zip"]
+{{ end }}
