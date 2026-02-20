@@ -148,5 +148,7 @@ curl -sSf https://raw.githubusercontent.com/lasantosr/intelli-shell/main/install
 # }}}
 
 # starship {{{
+if [[ $CHEZMOI_OS == "windows" ]]; then
 curl -sS https://starship.rs/install.sh | sh -s -- -b $HOME/bin -y
+fi
 # }}}
