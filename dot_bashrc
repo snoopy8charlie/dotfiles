@@ -81,7 +81,12 @@ set -o vi
 
 eval "$(starship init bash)"
 
-autoenv="$HOME/.autoenv/activate.sh"
+if [[ $OSTYPE == "msys" ]]; then
+  autoenv="$HOME/.autoenv/activate.sh"
+else
+  autoenv="$(npm root -g)/@hyperupcall/autoenv/activate.sh"
+fi
+
 if [[ -f $autoenv ]]; then
   source $autoenv
 fi
