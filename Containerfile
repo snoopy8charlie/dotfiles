@@ -50,7 +50,8 @@ RUN dnf install -y \
   ripgrep \
   bat \
   git-delta \
-  jq
+  jq \
+  tmux
 
 RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ruff ty
 
@@ -70,4 +71,4 @@ WORKDIR /home/dylan
 
 USER dylan
 
-CMD ["bash", "-li"]
+CMD ["tmux", "-u", "-2"]
