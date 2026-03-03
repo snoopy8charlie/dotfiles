@@ -50,7 +50,13 @@ RUN dnf install -y \
   ripgrep \
   bat \
   git-delta \
-  jq
+  jq \
+  tree
+
+# Remove cached package data
+RUN sudo dnf clean all
+
+RUN sudo dnf remove dnf rpm
 
 RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ruff ty
 
