@@ -51,7 +51,13 @@ RUN dnf install -y \
   bat \
   git-delta \
   jq \
-  tmux
+  tmux \
+  tree
+
+# Remove cached package data
+RUN sudo dnf clean all
+
+RUN sudo dnf remove dnf rpm
 
 RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ruff ty
 
@@ -70,5 +76,10 @@ VOLUME /home/dylan
 WORKDIR /home/dylan
 
 USER dylan
+
+ARG GIT_NAME
+ARG GIT_EMAIL
+ENV GIT_AUTHOR_NAME=${GIT_NAME}
+ENV GIT_AUTHOR_EMAIL=${GIT_EMAIL}
 
 CMD ["tmux", "-u", "-2"]
