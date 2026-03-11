@@ -52,12 +52,12 @@ RUN dnf install -y \
   git-delta \
   jq \
   tmux \
-  tree
+  tree \
+  stow \
+  ncurses-term
 
 # Remove cached package data
 RUN sudo dnf clean all
-
-RUN sudo dnf remove dnf rpm
 
 RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ruff ty
 
@@ -67,7 +67,7 @@ RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ru
 # [dylan@devcontainer-pc-01 ~]$
 RUN curl -sS https://starship.rs/install.sh | sh -s -- -y
 
-RUN npm i -g bash-language-server @ansible/ansible-language-server @hyperupcall/autoenv
+RUN npm i -g bash-language-server @ansible/ansible-language-server @hyperupcall/autoenv @google/gemini-cli
 
 RUN useradd dylan
 
@@ -81,5 +81,25 @@ ARG GIT_NAME
 ARG GIT_EMAIL
 ENV GIT_AUTHOR_NAME=${GIT_NAME}
 ENV GIT_AUTHOR_EMAIL=${GIT_EMAIL}
+
+# allow 256 bit color support
+ENV TERM=xterm-256color 
+ENV COLORTERM=truecolor
+
+RUN rm .bash_profile .bashrc
+
+# The Cache Breaker
+# Podman will rebuild from here down if REPO_SHA changes
+ARG REPO_SHA=1
+
+RUN curl -LO https://github.com/snoopy8charlie/dotfiles/archive/refs/heads/main.zip && unzip main.zip && mv dotfiles-main dotfiles&& rm main.zip
+
+WORKDIR /home/dylan/dotfiles
+
+RUN stow --dotfiles -v .
+
+WORKDIR /home/dylan
+
+RUN git clone https://github.com/tmux-plugins/tpm .tmux/plugins/tpm && .tmux/plugins/tpm/bin/install_plugins
 
 CMD ["tmux", "-u", "-2"]

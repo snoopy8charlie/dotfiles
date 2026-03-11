@@ -6,7 +6,6 @@ alias dinopass="curl https://www.dinopass.com/password/strong"
 
 alias vim="nvim"
 alias cat="bat"
-alias tree="tre"
 
 # Git
 alias gs="git status"
