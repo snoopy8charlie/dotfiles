@@ -54,12 +54,14 @@ RUN dnf install -y \
   tmux \
   tree \
   stow \
-  ncurses-term
+  ncurses-term \
+  file \
+  pinentry
 
 # Remove cached package data
-RUN sudo dnf clean all
+RUN dnf clean all
 
-RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ruff ty
+RUN python -m ensurepip && python -m pip install -U pip && pip3.14 install djlint ruff ty cookiecutter
 
 # have to install starship in /usr/bin/ because it seems like the PATH variable does not get set before bashrc is sourced
 # if we try to let starship exist in ~/bin, we get the below error:
@@ -68,6 +70,12 @@ RUN python -m ensurepip && python -m pip install -U pip && pip install djlint ru
 RUN curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 RUN npm i -g bash-language-server @ansible/ansible-language-server @hyperupcall/autoenv @google/gemini-cli
+
+WORKDIR /usr/bin/
+RUN curl -LO https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/openshift-client-linux.tar.gz && tar xf openshift-client-linux.tar.gz && rm openshift-client-linux.tar.gz
+RUN curl -LO https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/opm-linux-rhel9.tar.gz && tar xf opm-linux-rhel9.tar.gz && mv opm-rhel9 opm && rm opm-linux-rhel9.tar.gz
+RUN curl -LO https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/butane/latest/butane && chmod 755 butane
+RUN curl -LO https://github.com/kubevirt/kubevirt/releases/download/v1.7.2/virtctl-v1.7.2-linux-amd64 && mv virtctl-v1.7.2-linux-amd64 virtctl && chmod 755 virtctl
 
 RUN useradd dylan
 
@@ -92,7 +100,7 @@ RUN rm .bash_profile .bashrc
 # Podman will rebuild from here down if REPO_SHA changes
 ARG REPO_SHA=1
 
-RUN curl -LO https://github.com/snoopy8charlie/dotfiles/archive/refs/heads/main.zip && unzip main.zip && mv dotfiles-main dotfiles&& rm main.zip
+RUN curl -LO https://github.com/snoopy8charlie/dotfiles/archive/refs/heads/main.zip && unzip main.zip && mv dotfiles-main dotfiles && rm main.zip
 
 WORKDIR /home/dylan/dotfiles
 
@@ -102,4 +110,8 @@ WORKDIR /home/dylan
 
 RUN git clone https://github.com/tmux-plugins/tpm .tmux/plugins/tpm && .tmux/plugins/tpm/bin/install_plugins
 
-CMD ["tmux", "-u", "-2"]
+# Copy our entrypoint script
+COPY --chmod=755 entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Start the tmux server via the script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
